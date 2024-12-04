@@ -4,7 +4,7 @@ import Loader from '../Common/Loader';
 import './User.css';
 const CreateUser = () => {
     const navigate = useNavigate();
-    const createUserApi = "http://localhost:3000/user"
+    const createUserApi = "http://localhost:8080/users/register"
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState({
@@ -22,7 +22,7 @@ const CreateUser = () => {
 
     const handelSubmit = async (event) => {
         event.preventDefault();
-        console.log(user)
+        console.log('User details are '+user.name)
         try {
             setIsLoading(true);
             const response = await fetch(createUserApi, {
@@ -35,7 +35,7 @@ const CreateUser = () => {
 
             if (response.ok) {
                 console.log('Form submitted successfully!');
-                setUser({name: "",email: "",phone: ""})
+                setUser({name: "", email: "", phone: ""})
                 navigate('/show-user');
             } else {
                 console.error('Form submission failed!');
@@ -58,7 +58,7 @@ const CreateUser = () => {
             <form onSubmit={handelSubmit}>
                 <div className="mb-3">
                     <label for="name" className="form-label">Name</label>
-                    <input type="text" className="form-control" id="name" name="name" value={user.name} onChange={handelInput} />
+                    <input type="text" className="form-control" id="username" name="username" value={user.username} onChange={handelInput} />
                 </div>
                 <div className="mb-3 mt-3">
                     <label for="email" className="form-label">Email</label>
@@ -67,6 +67,14 @@ const CreateUser = () => {
                 <div className="mb-3">
                     <label for="pwd" className="form-label">Phone</label>
                     <input type="text" className="form-control" id="phone" name="phone" value={user.phone} onChange={handelInput} />
+                </div>
+                <div className="mb-3">
+                    <label for="pwd" className="form-label">Password</label>
+                    <input type="text" className="form-control" id="password" name="password" value={user.password} onChange={handelInput} />
+                </div>
+                <div className="mb-3">
+                    <label for="pwd" className="form-label">Business Title</label>
+                    <input type="text" className="form-control" id="businessTitle" name="businessTitle" value={user.businessTitle} onChange={handelInput} />
                 </div>
                 <button type="submit" className="btn btn-primary submit-btn">Submit</button>
             </form>

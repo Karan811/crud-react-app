@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Loader from "../Common/Loader";
 
 const ShowUser = () => {
-  const showUserApi = "http://localhost:3000/user";
+  const showUserApi = "http://localhost:8080/users";
 
   const [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,7 @@ const ShowUser = () => {
     console.log("id : -", id);
     setIsLoading(true);
     try {
-      const response = await fetch(showUserApi.concat("/") + id, {
+      const response = await fetch(showUserApi.concat("/") + 1, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -33,15 +33,24 @@ const ShowUser = () => {
   }, []);
 
   const getUsers = () => {
+    const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJhbjEyMyIsInJvbGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzMzMzEyNzM2LCJleHAiOjE3MzMzMzA3MzZ9.hppun9JvNTWd_phnPc3UzTCKBHFfZeTtj44s7WLG25w"; // Replace with your actual token
+  
     axios
-      .get(showUserApi)
-      .then((res) => {
-        setUser(res.data);
+      .get(showUserApi.concat("/") + 1, {
+      
+        headers: {
+          Authorization: `Bearer ${token}` // Include the token in the Authorization header
+        }
+      })
+      .then((item) => {
+        console.info(item.data);
+        setUser(item.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
 
   if (user.length < 0) {
     return <h1>no user found</h1>;
@@ -61,30 +70,30 @@ const ShowUser = () => {
             </tr>
           </thead>
           <tbody>
-            {user?.map((item, i) => {
-              return (
-                <tr key={i + 1}>
-                  <td>{i + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.phone}</td>
+         
+         
+                <tr key={1}>
+                  <td>{1}</td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phone}</td>
                   <td>
-                    <Link to={`/edit-user/${item.id}`}>
+                    <Link to={`/edit-user/${user.id}`}>
                       <i className="fa fa-pencil" aria-hidden="true"></i>
                     </Link>
-                    <Link to={`/user/${item.id}`}>
+                    <Link to={`/user/${user.id}`}>
                       <i className="fa fa-eye" aria-hidden="true"></i>
                     </Link>
 
                     <i
                       className="fa fa-trash-o"
                       aria-hidden="true"
-                      onClick={() => handelDelete(item.id)}
+                      onClick={() => handelDelete(user.id)}
                     ></i>
                   </td>
                 </tr>
-              );
-            })}
+            
+     
           </tbody>
         </table>
       </div>

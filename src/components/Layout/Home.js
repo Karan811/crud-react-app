@@ -3,7 +3,7 @@ import Carasol from '../Pages/Carosol'
 const Home = ()=> {
   return (
     <div>
-        <Carasol />
+         <Carasol /> 
     </div>
   )
 }
