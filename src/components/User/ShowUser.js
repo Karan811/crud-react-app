@@ -14,7 +14,7 @@ const ShowUser = () => {
     console.log("id : -", id);
     setIsLoading(true);
     try {
-      const response = await fetch(showUserApi.concat("/") + 1, {
+      const response = await fetch(showUserApi, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -33,10 +33,10 @@ const ShowUser = () => {
   }, []);
 
   const getUsers = () => {
-    const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJhbjEyMyIsInJvbGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzMzMzEyNzM2LCJleHAiOjE3MzMzMzA3MzZ9.hppun9JvNTWd_phnPc3UzTCKBHFfZeTtj44s7WLG25w"; // Replace with your actual token
+    const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJhbjEyMyIsInJvbGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzMzODQ5NDExLCJleHAiOjE3MzM4Njc0MTF9.LbNsBrYYheaSubAxGA9jy4aSIJHz6WAao1wseDGU8m0"; // Replace with your actual token
   
     axios
-      .get(showUserApi.concat("/") + 1, {
+      .get(showUserApi, {
       
         headers: {
           Authorization: `Bearer ${token}` // Include the token in the Authorization header
@@ -70,10 +70,10 @@ const ShowUser = () => {
             </tr>
           </thead>
           <tbody>
+          {user.map((user, index) => (
          
-         
-                <tr key={1}>
-                  <td>{1}</td>
+                <tr key={user.id}>
+                  <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
@@ -92,7 +92,7 @@ const ShowUser = () => {
                     ></i>
                   </td>
                 </tr>
-            
+              ))}
      
           </tbody>
         </table>

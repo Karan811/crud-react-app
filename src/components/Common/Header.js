@@ -4,10 +4,10 @@ import "./Common.css";
 export default function Header() {
   return (
     <div>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-danger">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand" href="#">
-            <span className="navbar-text">React CRUD</span>
+            <span className="navbar-text">React App</span>
           </Link>
           <button
             className="navbar-toggler"

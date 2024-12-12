@@ -16,19 +16,22 @@ const CreateUser = () => {
     const handelInput = (event) => {
         event.preventDefault();
         const { name, value } = event.target;
-        console.log(name, value)
+    
         setUser({ ...user, [name]: value });
     }
 
     const handelSubmit = async (event) => {
         event.preventDefault();
-        console.log('User details are '+user.name)
+      
+        const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJLYXJhbjEyMyIsInJvbGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzMzODQ5NDExLCJleHAiOjE3MzM4Njc0MTF9.LbNsBrYYheaSubAxGA9jy4aSIJHz6WAao1wseDGU8m0"; // Replace with your actual token
+  
         try {
             setIsLoading(true);
             const response = await fetch(createUserApi, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, 
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(user),
             });
